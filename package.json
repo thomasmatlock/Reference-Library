@@ -11,9 +11,6 @@
     "url": "git+https://github.com/thomasmatlock/Reference-Library.git"
   },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/thomasmatlock/Reference-Library/issues"
-  },
-  "homepage": "https://github.com/thomasmatlock/Reference-Library#readme"
+  "license": "ISC"
+
 }
