@@ -1,16 +1,13 @@
 {
-  "name": "reference-library",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/thomasmatlock/Reference-Library.git"
-  },
-  "author": "",
-  "license": "ISC"
-
+	"name": "reference-library",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/thomasmatlock/Reference-Library.git"
+	},
+	"author": "",
+	"license": "ISC"
 }
