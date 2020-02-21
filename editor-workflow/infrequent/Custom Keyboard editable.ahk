@@ -1,4 +1,3 @@
-https://www.autohotkey.com/docs_1.0/KeyList.htm
 
 F1::SendInput, git status
 Return
@@ -23,6 +22,7 @@ F10::^v
 F11::^z
 F12::^y
 
+; https://www.autohotkey.com/docs_1.0/KeyList.htm
 
 
 
