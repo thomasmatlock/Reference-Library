@@ -6,25 +6,27 @@ Open the Keyboard Shortcut by pressing Ctrl + K then Ctrl + S and search for Col
 Ctrl Shift B for npm scripts
 
 Fold folds the innermost uncollapsed region at the cursor:
- - Ctrl+Shift+[ on Windows
+
+- Ctrl+Shift+[ on Windows
 
 Unfold unfolds the collapsed region at the cursor:
- - Ctrl+Shift+] on Windows
+
+- Ctrl+Shift+] on Windows
 
 Fold All folds all region in the editor:
- - Ctrl+K Ctrl+0 (zero) on Windows
+
+- Ctrl+K Ctrl+0 (zero) on Windows
 
 Unfold All unfolds all regions in the editor:
- - Ctrl+K Ctrl+J on Windows
+
+- Ctrl+K Ctrl+J on Windows
 
 Select All Occurrences of Find Match editor.action.selectHighlights.
+
 - Ctrl+Shift+L
 
 Ctrl+P gives us Command Palette, muchn easier to find a find, it's instant find-a-file
 
-# RENAME ALL: right click and rename anything, variables, functions etc. Much safer than Find All/Replace All
+- # RENAME ALL: right click and rename anything, variables, functions etc. Much safer than Find All/Replace All
 
 Ctrl Shift I = Inspect mode on browser
-
-
-
