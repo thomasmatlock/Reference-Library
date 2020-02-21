@@ -6,6 +6,8 @@ F3::SendInput, git commit -m '
 Return
 F4::SendInput, git push origin master
 Return
+^F4::SendInput, git push origin master
+Return
 
 
 F5::SendInput, npm run sasswatch
