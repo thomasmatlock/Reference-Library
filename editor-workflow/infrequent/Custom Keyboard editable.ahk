@@ -1,3 +1,5 @@
+https://www.autohotkey.com/docs_1.0/KeyList.htm
+
 F1::SendInput, git status
 Return
 F2::SendInput, git add -A
