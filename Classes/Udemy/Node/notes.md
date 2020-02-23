@@ -1,17 +1,54 @@
 Node
 
 - Jonas Node - Node.js, Express, MongoDB & More: The Complete Bootcamp 2019 (jonas) #copy
+
   - Welcome
   - Intro to Nodejs and NPM
+
     - Section Intro
     - What Is Node.js and Why Use It?
+
+      - runtime: basically a container or environment that js can be run in, or executed inside
+      - Pros
+        - nodejs is single-threaded, non blocking, event driven, I/O model
+      - Use cases
+        - API w database behind it, preferably noSQL
+        - Data streaming (youtube, twitch)
+        - realtime chat apps
+        - server side web apps
+
     - Running Javascript Outside the Browser
+      - Ctrl + L // clears the console while in node
+      - Ctrl + D // exits node, just like .exit
+      - Hit Tab twice // displays all global variables
+        - You will see some new modules, like https, fs, crypto, etc
+      - Underscore = include previous results
+        - Example:
+          - 2+2
+          - 4
+          - \_+2
+          - 6 // it includes the previous result, without having to type it
+      - Tab twice on a a property or module, you can see all the functions available to it
+        - example:
+          - String.<TabTab> // displays a few dozen or so methods we use on it
     - Using Modules 1: Core Modules
+      - So, we made an index.js file and logged 'hello world'
+      - instead of entering 'node', then hitting enter, instead we follow 'node' w filename, ie:
+        - node index.js
+      - also, for help later, goto nodejs site/docs/ and versions are on left nav column, choose version you are using
     - Reading and Writing Files
     - Blocking and Non-Blocking: Asynchronous Nature of Node.js
+      - Synchronous = processed in order, line by line
+      - Synchronous code = blocking code, asynchronous code = non blocking. Async is faster, optimized
+      - each line has to wait for execution of previous line
+      - this can be a problem for slow code, like an API request
     - Reading and Writing Files Asynchronously
     - Creating a Simple Web Server
+      - a
     - Routing
+      - url = host:port/subpage
+      - without routing, no matter what the subpage, it will always display host:port
+      - routing changes that to serve different response based on request
     - Building a (Very) Simple API
     - HTML Templating: Building the Templates
     - HTML Templating: Filling the Templates
@@ -23,6 +60,7 @@ Node
     - Package Versioning and Updating
     - Setting up Prettier in VS Code
     - Recap and What's Next
+
   - Intro to Backend Web Development
     - Section Intro
     - An Overview of How the Web Works
