@@ -124,18 +124,76 @@ Node
     - Static vs Dynamic vs API
 
 - How Nodejs Works, A Look behind the scenes
+
   - Section Intro
   - Node, V8, Libuv and C++
   - Processes, Threads and the Thread Pool
+
+    - when we use use node.js it means that there is a node process running on the computer
+    - node runs in a single thread, which is basically just a sequence of instructions
+    - single thread poses a problem, because its blockable, and 1 user is fine, but 10 or 10000 is a problem
+    - Flow:
+
+      - initialize program
+      - execute top level code
+      - require modules
+      - register event callbacks
+      - start event loop
+        - the event loop is where pretty much everything happens
+      - however, some events are too heavy to be handled by event loop, so we use thread pooling
+      - thread pool gives us +4 threads, configurable up to 128 threads
+      - event loop automatically offloads events to thread pool, its not us developers who decide what goes to thread pool
+        - thread pool handles heavy tasks like:
+          - cryptography
+          - compression
+          - DNS lookups
+          - file system APIs
+
   - The Node.js Event Loop
-  - The Event Loop in Practice
-  - Events and Event-Driven Architecture
-  - Events in Practice
-  - Introduction to Streams
-  - Streams in Practice
-  - How Requiring Modules Really Works
-  - Requiring Modules in Practice
-- [Optional] Async JS: Promises and Async/Await
+
+    - event loop is heart of node.js
+    - runs all code inside callback functions (non toplevel code)
+    - nodejs is built around callback functions, functions that are called as soon as some work is finished
+    - Event driven architecture
+      - Events are emitted
+      - Event loops pick them up
+      - callbacks are called
+        - Event examples
+          - new http request
+          - timer expired
+          - finished file read
+    - event loop does orchestration
+    - Event Loop in detail
+
+      - EL has multiple phases
+      - each phase in the event loop has its own callback queue
+      - phases
+        - expired timers
+        - IO polling and callbacks, when the previous phase is done, it returns to polling for new IO
+          - in nodejs context, IO generally means networking and file access
+        - setImmediateCallbacks
+          - something to use in more advanced cases
+        - close callbacks
+      - after each phase, if there are any callbacks, those will be executed immediately
+      - a tick in an event loop is just one cycle
+      - before with nodemon, we were basically running an IO task, so it never exited the event loop. it just kept listening for http input
+      - event loop is what makes nodejs awesome and unique, you only need event loop and thread pool, its pretty cool
+
+    - TIPS to not block the event loop
+      - Dont use sync versions of function is fs, crypto, and zlib (compression) modules in your callback functions
+      - dont perform complex calculations (loops inside loops)
+        -be careful w JSON in large objects
+        - Dont use too highly nested regular expressions, eg nested quantifiers
+
+* The Event Loop in Practice
+* Events and Event-Driven Architecture
+* Events in Practice
+* Introduction to Streams
+* Streams in Practice
+* How Requiring Modules Really Works
+* Requiring Modules in Practice
+
+* [Optional] Async JS: Promises and Async/Await
   - Section Intro
   - The Problem with Callbacks: Callback Hell
   - From Callback Hell to Promises
@@ -143,7 +201,7 @@ Node
   - Consuming Promises with Async/Await
   - Returning Values from Async Functions
   - Waiting for Multiple Promises Simultaneously
-- Express: Start Building the Natours API
+* Express: Start Building the Natours API
   - Section Intro
   - What is Express?
   - Installing Postman
@@ -166,7 +224,7 @@ Node
   - Serving Static Files
   - Environment Variables
   - Setting up ESLint + Prettier in VS Code
-- Intro to MongoDB
+* Intro to MongoDB
   - Section Intro
   - What is MongoDB?
   - Installing MongoDB on macOS
@@ -179,7 +237,7 @@ Node
   - Using Compass App for CRUD Operations
   - Creating a Hosted Database with Atlas
   - Connecting to Our Hosted Database
-- Using MongoDB w Mongoose
+* Using MongoDB w Mongoose
   - Section Intro
   - Connecting Our Database with the Express App
   - What Is Mongoose?
@@ -208,7 +266,7 @@ Node
   - Aggregation Middleware
   - Data Validation: Built-In Validators
   - Data Validation: Custom Validators
-- Error Handling w Express
+* Error Handling w Express
   - Section Intro
   - Debugging Node.js with ndb
   - Handling Unhandled Routes
@@ -223,7 +281,7 @@ Node
   - Handling Mongoose Validation Errors
   - Errors Outside Express: Unhandled Rejections
   - Catching Uncaught Exceptions
-- Authentication Authorization and Security
+* Authentication Authorization and Security
   - Section Intro
   - Modelling Users
   - Creating New Users
@@ -247,7 +305,7 @@ Node
   - Setting Security HTTP Headers
   - Data Sanitization
   - Preventing Parameter Pollution
-- Modelling Data and Advanced Mongoose
+* Modelling Data and Advanced Mongoose
   - Section Intro
   - MongoDB Data Modelling
   - Designing Our Data Model
@@ -275,7 +333,7 @@ Node
   - Geospatial Queries: Finding Tours Within Radius
   - Geospatial Aggregation: Calculating Distances
   - Creating API Documentation Using Postman
-- Server-Side Rendering w Pug Templates
+* Server-Side Rendering w Pug Templates
   - Section Intro
   - Recap: Server-Side vs Client-Side Rendering
   - Setting up Pug in Express
@@ -300,7 +358,7 @@ Node
   - Updating User Data
   - Updating User Data with Our API
   - Updating User Password with Our API
-- Advanced Features Payments Email File Uploads
+* Advanced Features Payments Email File Uploads
   - Section Intro
   - Image Uploads Using Multer: Users
   - Configuring Multer
@@ -321,7 +379,7 @@ Node
   - Rendering a User's Booked Tours
   - Finishing the Bookings API
   - Final Considerations
-- Setting Up Git and Deployment
+* Setting Up Git and Deployment
   - Section Intro
   - Setting Up Git and GitHub
   - Git Fundamentals
