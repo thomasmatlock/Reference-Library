@@ -187,21 +187,89 @@ Node
 
 * The Event Loop in Practice
 * Events and Event-Driven Architecture
+  - in node there are things called event emitters, that emit an event, things like a timer expiring, or a file finished reading
+  - these event emitters trigger event listeners, which we set up
+  - the event listeners we set up fire off callback functions that are attached to each listener
+  - Example, using the http module we already used
+    - we create server
+    - using server.on, we actually are creating a listener, and the arg is the type of event to listen for, in http, usually a request
+    - the server we created acts as an emitter, and automatically emits an event, each time a request hits the server, it performs the callback function we attached to it, which in a test log we res.end "Message received"
+    - it works this way because the server is an instance of the nodejs emitter class
+      - it inherits all this event emitting functionality and logic from the nodejs emitter class
+    - this entire logic pattern is called the "observer pattern"
+      - simply, we have an event listener, aka the "observer", which observes the event emitter, waiting for it to emit, so it can run the callback function
+      - this is different from what we're used to, which so far has been synchronous, just one function calling another, line by line, no emitters, no listeners, and not really any callbacks
+      - the observer pattern is designed to 'react' rather than call, because the benefits to using this architecture are huge
+        - for example, everything is more decoupled. ie, we dont modules from the filesystem calling http module. everything is nicely self contained
+        - also event driven architecture, the observer pattern, makes it far easier to react to multiple events, just by setting up multiple listeners
 * Events in Practice
 * Introduction to Streams
+  - streams are used to process (read and write) data, piece by piece (chunks), without completing the whole read/write operation, therefore without keeping all the data in memory
+    - perfect for handling large volumes of data
+    - more efficient data processing in terms of memory (no need to keep all data in memory), and time (we dont have to wait until all the data is available)
+  - 4 different types of streams
+    - streams are actually instances of the emitter class
+    - readable stream
+      - stream which we read/consume
+      - example: http requests, fs read streams
+      - important events: data, end (end is emitted once no more data is available to consume)
+      - important functions: pipe(), read() // pipe() is extremely important, it allows us to plug data from one stream to another, not much worrying about events
+    - writeable stream
+      - streams we can write data to
+      - example: http responses, fs write streams
+      - important events: drain, finish
+      - important functions: write(), end()
+    - duplex stream
+      - basically hybrid of read and write streams, they readable and writable at same time
+      - example: net web socket
+    - transform stream
+      - basically a duplex stream that transforms data as it is written or read
+      - example: zlib Gzip creation
+    - please note all the important events and functions are useable only once the examples of each of these 4 types is running.
 * Streams in Practice
 * How Requiring Modules Really Works
+  - each js file is treated as a module
+    - nodejs uses the commonJS module system: require(), exports, or module.exports
+    - native ES module system is what is used in browsers, import/export
+    - there have been attempts to bring native ES modules into node.js,, such as using filenames like (.mjs)
+    - require() and how it works
+      - resolving, loading, it finds file path and loads it
+        - since it can 3 module types (core like http, dev modules, and 3rd party modules), it needs to know which modules are which
+          - starts with core modules
+          - if begins with './' or '../', it tries to load dev modules
+          - if no file found, look for folder containing index.js
+          - else, go to node_modules/ and look for module there
+          - we dont need to write the relvative path of core and npm modules, only dev modules
+      - wrapping, after its found the module
+        - wrapping take the module and wraps into a couple of special objects
+        - each module has a private scope
+        - References:
+          - require, function to require modules
+          - module, reference to the current module
+          - exports, reference to module.exports, used to export object from module
+          - \_\_filename, absolute path of the current module's file
+          - \_\_dirname, dir name of the current module
+      - execution
+        - nothing fancy here, just all the code in the wrapper gets executed
+      - returning exports
+        - require function returns exports of the required module
+        - module.exports is the returned object
+        - use module.exports to export one single variable, eg one class or function, (module.exports = Calculator)
+        - use exports to export multiple named variables, (exports.add = (a, b) => a + b)
+        - basically require means you request everything a module is exporting, and it gets wrapped up and saved in your 1st requiring file
+      - caching is the final step, entire module gets cached
 * Requiring Modules in Practice
 
-* [Optional] Async JS: Promises and Async/Await
+- [Optional] Async JS: Promises and Async/Await
   - Section Intro
   - The Problem with Callbacks: Callback Hell
+    - o
   - From Callback Hell to Promises
   - Building Promises
   - Consuming Promises with Async/Await
   - Returning Values from Async Functions
   - Waiting for Multiple Promises Simultaneously
-* Express: Start Building the Natours API
+- Express: Start Building the Natours API
   - Section Intro
   - What is Express?
   - Installing Postman
@@ -224,7 +292,7 @@ Node
   - Serving Static Files
   - Environment Variables
   - Setting up ESLint + Prettier in VS Code
-* Intro to MongoDB
+- Intro to MongoDB
   - Section Intro
   - What is MongoDB?
   - Installing MongoDB on macOS
@@ -237,10 +305,19 @@ Node
   - Using Compass App for CRUD Operations
   - Creating a Hosted Database with Atlas
   - Connecting to Our Hosted Database
-* Using MongoDB w Mongoose
+- Using MongoDB w Mongoose
   - Section Intro
   - Connecting Our Database with the Express App
   - What Is Mongoose?
+    - key features
+      - document based. MongoDB stores data in documents (field value pair data structures, NoSQL)
+      - scalable, very easy to distribute data across multiple machines, as your users and data grows
+      - flexible, no document data schema required, so each document can have different number and type of fields
+      - performant, embedded data models, indexing, sharding,flexible documents, native duplication
+      - free, open source
+    - uses BSON
+      - basically JSON, but all values have a type, string, boolean, number, etc.
+      - contains embedded documents like fields that have array values, ie post author, post text, or whatever, makes it performant
   - Creating a Simple Tour Model
   - Creating Documents and Testing the Model
   - Intro to Back-End Architecture: MVC, Types of Logic, and More
@@ -266,7 +343,7 @@ Node
   - Aggregation Middleware
   - Data Validation: Built-In Validators
   - Data Validation: Custom Validators
-* Error Handling w Express
+- Error Handling w Express
   - Section Intro
   - Debugging Node.js with ndb
   - Handling Unhandled Routes
@@ -281,7 +358,7 @@ Node
   - Handling Mongoose Validation Errors
   - Errors Outside Express: Unhandled Rejections
   - Catching Uncaught Exceptions
-* Authentication Authorization and Security
+- Authentication Authorization and Security
   - Section Intro
   - Modelling Users
   - Creating New Users
@@ -305,7 +382,7 @@ Node
   - Setting Security HTTP Headers
   - Data Sanitization
   - Preventing Parameter Pollution
-* Modelling Data and Advanced Mongoose
+- Modelling Data and Advanced Mongoose
   - Section Intro
   - MongoDB Data Modelling
   - Designing Our Data Model
@@ -333,7 +410,7 @@ Node
   - Geospatial Queries: Finding Tours Within Radius
   - Geospatial Aggregation: Calculating Distances
   - Creating API Documentation Using Postman
-* Server-Side Rendering w Pug Templates
+- Server-Side Rendering w Pug Templates
   - Section Intro
   - Recap: Server-Side vs Client-Side Rendering
   - Setting up Pug in Express
@@ -358,7 +435,7 @@ Node
   - Updating User Data
   - Updating User Data with Our API
   - Updating User Password with Our API
-* Advanced Features Payments Email File Uploads
+- Advanced Features Payments Email File Uploads
   - Section Intro
   - Image Uploads Using Multer: Users
   - Configuring Multer
@@ -379,7 +456,7 @@ Node
   - Rendering a User's Booked Tours
   - Finishing the Bookings API
   - Final Considerations
-* Setting Up Git and Deployment
+- Setting Up Git and Deployment
   - Section Intro
   - Setting Up Git and GitHub
   - Git Fundamentals
