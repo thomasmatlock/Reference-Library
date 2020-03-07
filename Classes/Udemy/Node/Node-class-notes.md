@@ -283,12 +283,31 @@ Node
       - expose structured, resource-based URLS
         - www.natours.com/addNewTour // entire URL, and the stuff following the / is the endpoint
       - use HTTP methods to send and receive (verbs) // its a conventions to name resources in plural, ie 'tours', not 'tour'; to get specific tour, it can be GET/tours/[insertIDHere]
-        - /addNewTour
-        - /getTour === GET /tours
-        - /updateTour
-        - /deleteTour => 
+        - a good example is the endpoint for something is the same, but different methods used on it, ie, get/post /tours
+        - /addNewTour === POST /tour // create
+          - POST creates new resource 
+        - /getTour === GET /tours/7 // read
+        - /updateTour === PUT or PATCH /tours/7 // update
+          - PUT/PATCH update existing resource
+          - PUT sends entire object to replace obj on server with
+          - PATCH sends partial object to replace obj on server with, its piecemeal, rather than wholesale 
+        - /deleteTour === DELETE /tours/7 // Delete
+          - to successfully perform a delete, user must be authenticated
+        - examples:
+          - /getUsersByTour === GET /users/3/tours
+          - /deleteUsersByTour === DELETE /users/3/tours/9
+        - These 5 methods, are CRUD, Create, Read, Update, Delete
       - send data as JSON (usually)
+        - keys must be strings
+        - values usually are strings, but can be other types, bools, numbers, or even arrays
+        - JSend, we use it to do some formatting before sending back to client
+          - includes: 
+            - status (200, 400)
+            - data 
       - must be stateless ()
+        - stateless restful API: all state is handled by the client. This means that the client request must contain all the information necessary to process a certain request. The server should NOT have to remember previous requests
+        - examples of state: 
+          - loggedIn, currentPage, etc...
   - Starting Our API: Handling GET Requests
   - Handling POST Requests
   - Responding to URL Parameters
