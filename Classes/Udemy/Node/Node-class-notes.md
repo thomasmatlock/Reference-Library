@@ -273,8 +273,22 @@ Node
   - Section Intro
   - What is Express?
   - Installing Postman
+   - cool that we can use the couple dozen http requests other than get 
   - Setting up Express and Basic Routing
   - APIs and RESTful API Design
+    - API building, 2 principles
+      - Separate API resources into logical  resources
+        - Resource: an object or representation of something, which has data associated to it. Any information that can be named can be a resource
+        - ie, tours / users / reviews 
+      - expose structured, resource-based URLS
+        - www.natours.com/addNewTour // entire URL, and the stuff following the / is the endpoint
+      - use HTTP methods to send and receive (verbs) // its a conventions to name resources in plural, ie 'tours', not 'tour'; to get specific tour, it can be GET/tours/[insertIDHere]
+        - /addNewTour
+        - /getTour === GET /tours
+        - /updateTour
+        - /deleteTour => 
+      - send data as JSON (usually)
+      - must be stateless ()
   - Starting Our API: Handling GET Requests
   - Handling POST Requests
   - Responding to URL Parameters
