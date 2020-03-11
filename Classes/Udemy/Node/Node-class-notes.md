@@ -308,6 +308,8 @@ Node
         - stateless restful API: all state is handled by the client. This means that the client request must contain all the information necessary to process a certain request. The server should NOT have to remember previous requests
         - examples of state: 
           - loggedIn, currentPage, etc...
+          - BAD stateless: client sends GET/tours/nextPage => server then does current page + 1, not good
+          - GOOD stateless: clients send GET/tours/page/6 => server then does send(page6)
   - Starting Our API: Handling GET Requests
   - Handling POST Requests
   - Responding to URL Parameters
