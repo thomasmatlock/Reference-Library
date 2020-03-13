@@ -317,6 +317,20 @@ Node
   - Handling DELETE Requests
   - Refactoring Our Routes
   - Middleware and the Request-Response Cycle
+    - client hits the server with a request
+    - app/server creates both a request and response object
+    - server processes both to generate meaningful response to send back to client
+    - we often use middleware to manipulate res or req objects
+    - middleware isnt always about the res or req obj but usually about the req
+    - we use express.json to get access to the req body on the req object
+    - its called middleware because its used in the middle of receiving the req and sending the res
+      - everything is middleware in express, pretty much, even routers
+    - all our MW we use is called our "MW stack"
+    - the order of MW in the stack is actually defined by the order they are defined in the code
+      - ie MW that appears first in code is executed before MW that appears after it
+    - req/res objects get processed by MW in order, and every MW method has the next() method, which hands it off to the next MW method 
+    - MW is a pipeline we send our data/req/res objects through to be manip into meaningful res
+    - usually last MW is router, in which we dont next() to next MW, but in fact send res back to client
   - Creating Our Own Middleware
   - Using 3rd-Party Middleware
   - "Implementing the ""Users"" Routes  "
