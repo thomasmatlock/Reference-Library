@@ -341,14 +341,36 @@ Node
   - Serving Static Files
   - Environment Variables
   - Setting up ESLint + Prettier in VS Code
+    - npm i eslint-config-prettier (disables eslint from doing prettiers job formatting code)
+    - eslint-plugin-prettier, allows eslint to show formatting errors
+    - eslint-config-airbnb, formats JS, airbnb is a popular formatting style
+    - eslint-plugin-node, node specific error finder for when we write node code 
+    - eslint-plugin-import and eslint-plugin-jsx-a11y 
+    - www.eslint.org/docs/rules
 - Intro to MongoDB
   - Section Intro
   - What is MongoDB?
   - Installing MongoDB on macOS
   - Installing MongoDB on Windows
+    - install complete version, create dir 'C:\data\db', open powershell, run mongod.exe inside 'C:\program files\MongoDB\Server\4.2\bin\mongod.exe'
+      - it will load server listening 127.0.0.1:27017
+    - open terminal 2, cd to 'C:\program files\MongoDB\Server\4.2\bin\', run mongo.exe (not mongod.exe)
+      - this connects to the listening server/port, and we can now access the database
+    - run 'db' command, should return 'test' if its working
+    - so mongod.exe starts listening server, mongo.exe connects to server
+    - to run mongod from other directory outside its current working directory:
+      - add 'C:\Program Files\MongoDB\Server\4.2\bin' (or wherever mongod.exe is located) to system env variables, path.
+        - this gives powershell know where to look when you run mongod.exe
   - Creating a Local Database
+    - 'use' command switches to db in question, and if nonexistent, creates one and moves to it
+    - each database has collections, and collections contain documents
+    - to insdert a document, you must specify the collection it is in, ie
+      - db.tours.insertOne({name: "The Forest Hiker", price: 297, rating: 4.7}) (db = current db, tours = chosen collection to place document, insertMany is method, then just pass a JS object, it converts it to BSON, or JSON, not sure which yet)
+    - use help for other commands, then quit() to exit
   - CRUD: Creating Documents
+    - db.collection.insertMany([{}, {}]) // accepts an array of js objects
   - CRUD: Querying (Reading) Documents
+    - db.collection.find({key: value}) // ie, key value object might be: name: "The Sea Explorer", it returns anything that matches the property values you put in
   - CRUD: Updating Documents
   - CRUD: Deleting Documents
   - Using Compass App for CRUD Operations
