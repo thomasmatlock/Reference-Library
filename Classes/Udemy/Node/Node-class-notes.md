@@ -370,7 +370,31 @@ Node
   - CRUD: Creating Documents
     - db.collection.insertMany([{}, {}]) // accepts an array of js objects
   - CRUD: Querying (Reading) Documents
+    - EASIEST WAY
     - db.collection.find({key: value}) // ie, key value object might be: name: "The Sea Explorer", it returns anything that matches the property values you put in
+      - the object you pass to this is the just the "filter" object, you give it a property, then a value to find any matches for
+    - SPECIAL QUERY OPERATORS for advanced find functionality
+      - db.tours.find({price: {$lte: 500}}) basically the propertyy 1st, then for the operator, use an object ie {$lte: 500} this finds anything less than 500
+        - teh '$' symbol in MongoDB is reserved for the operators
+      - db.collection.find({property: {$gte: 500}}) // $gte is greater than, $lte is less than. This would search for db entries with a price greater than 500
+      - OPERATORS
+        - $lt=less than
+        - $lte=less than or equal to
+        - $gt=greater than
+        - $gt=greater than
+        - $gte=greater than or equal to
+      - MULTIPLE FILTERS
+        - AND example (finds matches that fit ALL filter criteria): 
+          - db.tours.find({price: {$gt: 300}, rating: {$lte: 4.9}}) // searches for matches w price greater than 300, rating less than or equal to 4.9
+            - basically just pass it a filter object in curlies, then for each criteria, the operator needs to be in an object also
+        - OR example (finds matches that match ANY of the filter criteria)
+          - example (this is a little trickier)
+            - db.tours.find({ $or: [{price: {$lt: 500}}, {rating: {$gte: 4.8}} ] }) // find db items that match price less than 500, OR rating greater than 4.8
+              - takes an object, which starts with $or:
+              - $or: takes an array of filter objects, in which the above example we have 2 filter objects to check db items against
+        - Projection (selecting only specific properties of the matched db items to be displayed when it returns) ie, dont want the entire object, just the name
+          - db.tours.find({ $or: [{price: {$gt: 500}}, {rating: {$gte: 4.8}} ] }, {name: 1}), insert a 2nd obj completely outside and after the OR operator obj
+            - in the above, the projection object {name: 1}, simply states we want to return all matches but display name property only, not entire obj and all its properties
   - CRUD: Updating Documents
   - CRUD: Deleting Documents
   - Using Compass App for CRUD Operations
