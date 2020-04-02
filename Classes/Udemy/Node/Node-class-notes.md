@@ -273,24 +273,24 @@ Node
   - Section Intro
   - What is Express?
   - Installing Postman
-   - cool that we can use the couple dozen http requests other than get 
+  - cool that we can use the couple dozen http requests other than get
   - Setting up Express and Basic Routing
   - APIs and RESTful API Design
     - API building, 2 principles
-      - Separate API resources into logical  resources
+      - Separate API resources into logical resources
         - Resource: an object or representation of something, which has data associated to it. Any information that can be named can be a resource
-        - ie, tours / users / reviews 
+        - ie, tours / users / reviews
       - expose structured, resource-based URLS
         - www.natours.com/addNewTour // entire URL, and the stuff following the / is the endpoint
       - use HTTP methods to send and receive (verbs) // its a conventions to name resources in plural, ie 'tours', not 'tour'; to get specific tour, it can be GET/tours/[insertIDHere]
         - a good example is the endpoint for something is the same, but different methods used on it, ie, get/post /tours
         - /addNewTour === POST /tour // create
-          - POST creates new resource 
+          - POST creates new resource
         - /getTour === GET /tours/7 // read
         - /updateTour === PUT or PATCH /tours/7 // update
           - PUT/PATCH update existing resource
           - PUT sends entire object to replace obj on server with
-          - PATCH sends partial object to replace obj on server with, its piecemeal, rather than wholesale 
+          - PATCH sends partial object to replace obj on server with, its piecemeal, rather than wholesale
         - /deleteTour === DELETE /tours/7 // Delete
           - to successfully perform a delete, user must be authenticated
         - examples:
@@ -301,12 +301,12 @@ Node
         - keys must be strings
         - values usually are strings, but can be other types, bools, numbers, or even arrays
         - JSend, we use it to do some formatting before sending back to client
-          - includes: 
+          - includes:
             - status (200, 400)
-            - data 
+            - data
       - must be stateless ()
         - stateless restful API: all state is handled by the client. This means that the client request must contain all the information necessary to process a certain request. The server should NOT have to remember previous requests
-        - examples of state: 
+        - examples of state:
           - loggedIn, currentPage, etc...
           - BAD stateless: client sends GET/tours/nextPage => server then does current page + 1, not good
           - GOOD stateless: clients send GET/tours/page/6 => server then does send(page6)
@@ -328,7 +328,7 @@ Node
     - all our MW we use is called our "MW stack"
     - the order of MW in the stack is actually defined by the order they are defined in the code
       - ie MW that appears first in code is executed before MW that appears after it
-    - req/res objects get processed by MW in order, and every MW method has the next() method, which hands it off to the next MW method 
+    - req/res objects get processed by MW in order, and every MW method has the next() method, which hands it off to the next MW method
     - MW is a pipeline we send our data/req/res objects through to be manip into meaningful res
     - usually last MW is router, in which we dont next() to next MW, but in fact send res back to client
   - Creating Our Own Middleware
@@ -344,8 +344,8 @@ Node
     - npm i eslint-config-prettier (disables eslint from doing prettiers job formatting code)
     - eslint-plugin-prettier, allows eslint to show formatting errors
     - eslint-config-airbnb, formats JS, airbnb is a popular formatting style
-    - eslint-plugin-node, node specific error finder for when we write node code 
-    - eslint-plugin-import and eslint-plugin-jsx-a11y 
+    - eslint-plugin-node, node specific error finder for when we write node code
+    - eslint-plugin-import and eslint-plugin-jsx-a11y
     - www.eslint.org/docs/rules
 - Intro to MongoDB
   - Section Intro
@@ -370,32 +370,43 @@ Node
   - CRUD: Creating Documents
     - db.collection.insertMany([{}, {}]) // accepts an array of js objects
   - CRUD: Querying (Reading) Documents
-    - EASIEST WAY
-    - db.collection.find({key: value}) // ie, key value object might be: name: "The Sea Explorer", it returns anything that matches the property values you put in
+    - db.collection.find({key: value}) // ie, key value object might be: name: "The Sea Explorer", it returns anything that matches property values you put in
       - the object you pass to this is the just the "filter" object, you give it a property, then a value to find any matches for
-    - SPECIAL QUERY OPERATORS for advanced find functionality
-      - db.tours.find({price: {$lte: 500}}) basically the propertyy 1st, then for the operator, use an object ie {$lte: 500} this finds anything less than 500
-        - teh '$' symbol in MongoDB is reserved for the operators
-      - db.collection.find({property: {$gte: 500}}) // $gte is greater than, $lte is less than. This would search for db entries with a price greater than 500
+    - Advanced search (SPECIAL QUERY OPERATORS)
+      - BASIC EXAMPLES
+        - db.collection.find({price: {$lte: 500}}) property 1st, then object containing operator, ie: {$lte: 500} finds anything less than/equal to 500
+        - db.collection.find({property: {$gte: 500}}) // $gte is greater than, \$lte is less than. Searches for db entries with a price greater than 500
       - OPERATORS
-        - $lt=less than
-        - $lte=less than or equal to
-        - $gt=greater than
-        - $gt=greater than
-        - $gte=greater than or equal to
-      - MULTIPLE FILTERS
-        - AND example (finds matches that fit ALL filter criteria): 
+        - the '\$' symbol in MongoDB is reserved for the operators
+        - \$lt=less than
+        - \$lte=less than or equal to
+        - \$gt=greater than
+        - \$gt=greater than
+        - \$gte=greater than or equal to
+      - MULTIPLE FILTER EXAMPLES (using AND/OR to find docs)
+        - AND example (finds matches that fit ALL filter criteria):
           - db.tours.find({price: {$gt: 300}, rating: {$lte: 4.9}}) // searches for matches w price greater than 300, rating less than or equal to 4.9
             - basically just pass it a filter object in curlies, then for each criteria, the operator needs to be in an object also
         - OR example (finds matches that match ANY of the filter criteria)
-          - example (this is a little trickier)
-            - db.tours.find({ $or: [{price: {$lt: 500}}, {rating: {$gte: 4.8}} ] }) // find db items that match price less than 500, OR rating greater than 4.8
-              - takes an object, which starts with $or:
-              - $or: takes an array of filter objects, in which the above example we have 2 filter objects to check db items against
-        - Projection (selecting only specific properties of the matched db items to be displayed when it returns) ie, dont want the entire object, just the name
-          - db.tours.find({ $or: [{price: {$gt: 500}}, {rating: {$gte: 4.8}} ] }, {name: 1}), insert a 2nd obj completely outside and after the OR operator obj
-            - in the above, the projection object {name: 1}, simply states we want to return all matches but display name property only, not entire obj and all its properties
+          - db.tours.find({ $or: [{price: {$lt: 500}}, {rating: {\$gte: 4.8}} ] }) // find db items that match price less than 500, OR rating greater than 4.8
+            - takes an object, which starts with \$or:
+            - \$or: takes an array of filter objects, in which the above example we have 2 filter objects to check db items against
+      - PROJECTION EXAMPLES (returns only chosen properties of the matched db items to be displayed) ie, dont want entire object, just the name
+        - db.tours.find({ $or: [{price: {$gt: 500}}, {rating: {\$gte: 4.8}} ] }, {name: 1}), insert a 2nd obj completely outside and after the OR operator obj
+          - above, the projection object {name: 1}, simply states we want all matches but display name property only, not entire obj w/ all its properties
   - CRUD: Updating Documents
+    - EXAMPLES
+      - db.collection.updateOne({ name: "The Snow Adventurer"}, { \$set: { price: 597}})
+        - obj1 = filter obj to specify document to update
+        - obj1, what property to update of that document
+          - obj2 operator is \$set (like post or patch)
+          - obj2 arg is obj containing property to update, with value to update it to
+        - note: if we want to update 1 doc, use updateOne, but if we know update will match multiple docs, use updateMany
+      - db.collection.updateMany({price: {$gt: 500}, rating: {$gte: 4.8}}, {\$set: {premium: true}})
+        - obj1 = filter obj, to specify docs to update
+        - obj2 = what property to update - in this case premium is a property that doesnt exist, so it will add it to the matching docs
+      - db.collection.replaceOne() // same as updateOne, but replaces.
+      - db.collection.replaceMany() // same as updateMany, but replaces.
   - CRUD: Deleting Documents
   - Using Compass App for CRUD Operations
   - Creating a Hosted Database with Atlas
