@@ -435,7 +435,7 @@ Node
 
   - Connecting to Our Hosted Database
     - click connect to cluster > whitelist your current IP address > enter un/pw (show/copy pw) > paste pw into config.env file
-      - DATABASE_PASSWORD=LeSjKsvNuhuiz3SU
+      - DATABASE_PASSWORD=uYuTyJ8706koiXJS
       - choose connection method > connect with MongoDB Compass method
       - copy the connection string
       - open Compass > new connection > paste connection string, toggle "enter fields manually" to paste pw > hit connect
