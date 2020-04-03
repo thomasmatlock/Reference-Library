@@ -408,6 +408,10 @@ Node
       - db.collection.replaceOne() // same as updateOne, but replaces.
       - db.collection.replaceMany() // same as updateMany, but replaces.
   - CRUD: Deleting Documents
+    - EXAMPLES
+      - db.tours.deleteOne({rating: {\$lt: 4.8}}) // removes 1st doc that matches filter obj
+      - db.tours.deleteMany({rating: {\$lt: 4.8}}) // removes all docs that match filter obj
+      - db.tours.deleteMany({}) // removes all docs, filter obj is empty
   - Using Compass App for CRUD Operations
   - Creating a Hosted Database with Atlas
   - Connecting to Our Hosted Database
