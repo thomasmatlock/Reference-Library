@@ -413,6 +413,17 @@ Node
       - db.tours.deleteMany({rating: {\$lt: 4.8}}) // removes all docs that match filter obj
       - db.tours.deleteMany({}) // removes all docs, filter obj is empty
   - Using Compass App for CRUD Operations
+    - ensure mongod server is running
+    - launch compass > new connection > ensure hostname/port are correct (usually 127.0.0.1:27017) > click connect
+    - to insert a doc into a collection
+      - insert document > select listview, not obj view > use tab to jump from property to value, etc
+        - for integers, change var type from string to int32, for decimals, change from string to double
+    - update docs
+      - hover over doc, click edit, insert new values, click update doc
+    - filter docs
+      - enter into filter filed same filter objects like in terminal, ie:
+        - {price: {\$lt: 700}}
+      - you can also use projection with filter options, ie return only names of objects
   - Creating a Hosted Database with Atlas
   - Connecting to Our Hosted Database
 - Using MongoDB w Mongoose
