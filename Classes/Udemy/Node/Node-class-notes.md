@@ -348,6 +348,7 @@ Node
     - eslint-plugin-import and eslint-plugin-jsx-a11y
     - www.eslint.org/docs/rules
 - Intro to MongoDB
+
   - Section Intro
   - What is MongoDB?
   - Installing MongoDB on macOS
@@ -425,7 +426,30 @@ Node
         - {price: {\$lt: 700}}
       - you can also use projection with filter options, ie return only names of objects
   - Creating a Hosted Database with Atlas
+
+    - for development, we wont use local database, we will use a remote database hosted by Atlas, which is created by MongoDB
+      - huge advantage is having a cloud db that we can access from any machine, rather than figuring out Dropbox syncing between my machines lol
+    - go to mongodb site/products/cloud/atlas
+    - signin, use shared free cluster
+    - create new project > give yourself project owner access > wait for it to be provisioned > create cluster (a cluster is an instance)
+      - wait for cluster build > click connect to cluster > whitelist your current IP address > enter un/pw (show/copy pw) > paste pw into config.env file
+        - DATABASE_PASSWORD=LeSjKsvNuhuiz3SU
+        - choose connection method > connect with MongoDB Compass method
+        - copy the connection string
+        - open Compass > new connection > paste connection string, toggle "enter fields manually" to paste pw > hit connect
+        - create new database, name it, name 1st collection (in this case its natours/tours)
+        - insert 1st doc, give it some properties, change value data type to bools, doubles or w/
+        - check db in Brave, hit cluster0, bunch of tabs across top, including "collections" click it, should have db.collection.doc in it
+        - if you wanna whitelist all IPS, you can, you will still need un/pw to access it, but whitelist everything skips having to whitelist every login
+          - goto clouddb/cluster/security/network access/IP whitelist > add IP address > allow access from anywhere (should my IP and show 0.0.0.0/0)
+        - lastly, connect mongo shell, click cluster > connect > mongo shell > copy connection string > switch to terminal > quit() to exit mongo shell > paste string, enter pw also >
+          - !IMPORTANT (terminal doesnt seem to take a pasted password, it actually prevents any entry) so add a password flag, like so:
+            - mongo "mongodb+srv://cluster0-gjwbd.mongodb.net/test" --username tommy --password uYuTyJ8706koiXJS
+            - show dbs, show collections, db.collection.find() // run these to test it returns docs correctly
+        - Done! Congrats, you have mongo shell AND compass connected to our hosted db
+
   - Connecting to Our Hosted Database
+
 - Using MongoDB w Mongoose
   - Section Intro
   - Connecting Our Database with the Express App
