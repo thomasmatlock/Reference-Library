@@ -472,11 +472,49 @@ Node
       - performant, embedded data models, indexing, sharding,flexible documents, native duplication
       - free, open source
     - uses BSON
-      - basically JSON, but all values have a type, string, boolean, number, etc.
+      - basically JSON, but all values have a type: string, boolean, number, etc.
       - contains embedded documents like fields that have array values, ie post author, post text, or whatever, makes it performant
-  - Creating a Simple Tour Model
+  - ## Creating a Simple Tour Model
   - Creating Documents and Testing the Model
   - Intro to Back-End Architecture: MVC, Types of Logic, and More
+    - Overview
+      - model(business logic)
+        - concerned with application data, business logic
+      - view(presentation logic)
+        - necessary if we have a GUI layer in our app. ie, if we're building a server-side rendered site
+      - controller(application logic)
+        - handle application requests, interact with models, and send back responses to client
+    - flowchart
+      - request >
+      - hits router (we have multiple routers, for users/routes, etc) >
+      - router delegates request to correct controller (again we have one controller handling each routers delegation) >
+      - controller may need to interact with certain modules aka model (business logic), ie retrive/create a document >
+      - there is one model file for each resources >
+      - after getting data from model, controller might be ready to send the data back to client >
+        - if we are using serverside rendering as an extra step, we may select a template, inject the data, and send it back to the client
+        - in an express app, there is usually 1 view template for each page, ie:
+          - overview.pug, tour.pug, login.pug
+    - MVC detailed look
+      - one goal of MVC is to separate business logic from application logic
+        - application logic
+          - only concerned with the application's implementation, not the underlying business problem we're trying to solve, ie:
+            - showing/selling tours
+          - a big part of application logic is managing requests and responses
+          - application logic is more about technical stuff
+          - also if we have views, application logic serves as a bridge between model and view layers, so we dont mix business logic w presentation logic
+        - business logic
+          - actually solves the business problem we set out to solve, ie:
+            - sell tours and sell them to customers
+          - its directly related to how the business works, and business needs
+            - Examples:
+              - creating new tours in the database
+              - checking if user's password is correct
+              - validating user input data
+              - ensuring only users who bought a tour can reivew it
+          - keep in mind, its impossible to keep business and application logic completely separate, there will be some overlap
+            - try keeping application logic in controllers
+            - try keeping business logic in models
+            - PHILOSOPHY: fat models/thin controllers: offload as much logic as possible into the models, and keep controllers simple/lean
   - Refactoring for MVC
   - Another Way of Creating Documents
   - Reading Documents
