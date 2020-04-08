@@ -453,17 +453,7 @@ Node
 - Using MongoDB w Mongoose
   - Section Intro
   - Connecting Our Database with the Express App
-    - mongo site > database > connect> connect to application > copy string
-      - copy to your project config.env file:
-        - mongodb+srv://tommy:<PASSWORD>@cluster0-gjwbd.mongodb.net/natours?retryWrites=true&w=majority
-          - 3 THINGS TO REMEMBER
-            - save password into variables
-            - save host into variable, in this case is "cluster0-gjwbd.mongodb.net"
-            - replace "/test?" with "/myActualDatabase?" otherwise it tries to write to the test db
-        - lastly, save a local mongo variable ie:
-          - DATABASE_LOCAL=mongodb://localhost:27017/natours
-        - lastly mongo npm driver that allows our code to talk to the db
-          - npm i mongoose@5 --save
+    - mongodb site > database > connect > connect application
   - What Is Mongoose?
     - key features
       - document based. MongoDB stores data in documents (field value pair data structures, NoSQL)
