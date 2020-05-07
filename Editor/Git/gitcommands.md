@@ -8,11 +8,12 @@
 - ROLLBACK/REVERT
   - git checkout -- . // restores repo to most previous commit
 - SERVER REPO
+
   - git remote -v // checks the push/pull targets of the current repo
   - git remote add origin https://github.com/thomasmatlock/Warp-App.git // sets github repo target to push/pull to/from
   - git push origin master // pushes entire local repo to the github server repo
-- REVISION
 
+- REVISION
   - git log --oneline // prints list of commits w/ comments
   - git fetch –all // pulls entire server repo
   - git reset --hard origin/master // OVERWRITES everything local with master server repo
