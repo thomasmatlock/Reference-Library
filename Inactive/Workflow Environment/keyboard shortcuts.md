@@ -13,3 +13,4 @@ https://code.visualstudio.com/docs/getstarted/keybindings
 - Ctrl+K Ctrl+J // Unfold All unfolds all regions in the editor:
 - Ctrl+Shift+L // Select All Occurrences of Find Match editor.action.selectHighlights.
 - Ctrl Shift I // Inspect mode on browser
+- Ctrl Shift D // add next match to selection
