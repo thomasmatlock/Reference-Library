@@ -1,6 +1,6 @@
 //developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export
 // SINGLE EXPORT/IMPORT, saved as variable
-https: module.exports = app;
+https: https: module.exports = app;
 const app = require('./app');
 
 // MULTIPLE EXPORTS/IMPORTS, IMPORTED AS OBJECT w METHODS
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 // OBJECTS AND CLASSES
 // EXPORT/IMPORT OBJECT
 export const elementStrings = {
-    loader: 'loader'
+    loader: 'loader',
 };
 const elementStrings = require('elementStrings');
 
@@ -51,17 +51,14 @@ class APIFeatures {
         // 1A) Filtering
         // here, we want a hard copy of all query key values pairs, and JS, all variables point to the original, so we destructure it off query with ...
         const queryObj = {
-            ...this.queryString
+            ...this.queryString,
         };
         const excludedFields = ['page', 'sort', 'limit', 'fields']; // this sets the list of queries we want to ignore
-        excludedFields.forEach(el => delete queryObj[el]); // here we loop through excludedFields, each element we want removed from queryObj, delete it from our queryObj
+        excludedFields.forEach((el) => delete queryObj[el]); // here we loop through excludedFields, each element we want removed from queryObj, delete it from our queryObj
 
         // 1B) Advanced Filtering
         let queryStr = JSON.stringify(queryObj);
-        queryStr = queryStr.replace(
-            /\b(gte|gt|lte|lt)\b/g,
-            match => `$${match}`
-        ); // regex replacing exact match of any of these strings. g allows multiple replacements. also allows callback fn using the match it found
+        queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`); // regex replacing exact match of any of these strings. g allows multiple replacements. also allows callback fn using the match it found
 
         // get all docs uses exact same method as using mongo shell or compass > find() method also converts JSON of doc to a obj
         this.query = this.query.find(JSON.parse(queryStr)); // Json.parse converts to obj, json.stringify converts to string
@@ -121,21 +118,21 @@ export default class List {
             id: uniqid(),
             count,
             unit,
-            ingredient
+            ingredient,
         };
         this.items.push(item);
         return item;
     }
 
     deleteItem(id) {
-        const index = this.items.findIndex(el => el.id === id);
+        const index = this.items.findIndex((el) => el.id === id);
         // [2,4,8] splice(1, 2) -> returns [4, 8], original array is [2]
         // [2,4,8] slice(1, 2) -> returns 4, original array is [2,4,8]
         this.items.splice(index, 1);
     }
 
     updateCount(id, newCount) {
-        this.items.find(el => el.id === id).count = newCount;
+        this.items.find((el) => el.id === id).count = newCount;
     }
 }
 
